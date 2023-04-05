@@ -1,0 +1,28 @@
+/* If the SPIFFS wont load ("SPIFFS initialisation failed!") run this in a seperate sketch and try again:
+#include "SPIFFS.h"
+void setup() {
+  SPIFFS.format();
+}
+void loop() {
+}
+*/
+// Call up the SPIFFS FLASH filing system this is part of the ESP Core
+#define FS_NO_GLOBALS
+#include <FS.h>
+#include "SPIFFS.h"  // For ESP32 only
+
+/* You only need to format SPIFFS the first time you run a
+   test or else use the SPIFFS plugin to create a partition
+   https://github.com/me-no-dev/arduino-esp32fs-plugin */
+#define FORMAT_SPIFFS_IF_FAILED true
+
+in void setup...
+
+
+  if (!SPIFFS.begin()) {
+    Serial.println("SPIFFS initialisation failed!");
+    while (1) yield();        // Stay here twiddling thumbs waiting
+  }
+  Serial.println("\r\nSPIFFS initialized.");
+
+  
